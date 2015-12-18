@@ -23,6 +23,7 @@ class World(object):
     """Shared instance value
     """
     __instance = None
+    genuine_properties = ("size", "energy", "reproducetibility", "day")
 
     def __new__(cls, **kwargs):
         if World.__instance is None:
@@ -31,7 +32,8 @@ class World(object):
 
     def __init__(self, **kwargs):
         if kwargs:
-            for attribute, value in kwargs.items():
+            properties = ((k, v) for k, v in kwargs.items() if k in self.genuine_properties)
+            for attribute, value in properties:
                 setattr(self, attribute, value)
         else:
             db = get_db()
