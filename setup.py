@@ -50,7 +50,7 @@ setup(
 
     entry_points={
         'console_scripts': [
-            'feedhub-unittest = feedhub.tests:main',
+            "life = game.__main__:run",
         ],
     },
 
