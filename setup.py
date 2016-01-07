@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 from codecs import open
 from os import path
-import game
+import sandbox
 
 here = path.abspath(path.dirname(__file__))
 
@@ -18,7 +18,7 @@ requirements = [
 
 setup(
     name='Life',
-    version=game.__version__,
+    version=sandbox.__version__,
 
     description=long_description,
     long_description=long_description,
