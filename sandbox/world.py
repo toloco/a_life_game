@@ -32,14 +32,18 @@ class World(object):
 
     def __init__(self, **kwargs):
         if kwargs:
-            properties = ((k, v) for k, v in kwargs.items() if k in self.genuine_properties)
+            properties = (
+                (k, v)
+                for k, v in kwargs.items()
+                if k in self.genuine_properties
+            )
             for attribute, value in properties:
                 setattr(self, attribute, value)
         else:
             db = get_db()
-            for attribute, value in db.hgetall(REDIS_WORLD).items():
-                attribute, value = attribute.decode("utf-8"), value.decode("utf-8")
-                setattr(self, attribute, float(value))
+            for attr, value in db.hgetall(REDIS_WORLD).items():
+                attr, value = attr.decode("utf-8"), value.decode("utf-8")
+                setattr(self, attr, float(value))
 
     def __del__(self):
         # Update in Redis

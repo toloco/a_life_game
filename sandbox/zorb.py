@@ -113,13 +113,15 @@ class Zorb(object):
 def get_zorbs():
     def restart_queue(db):
         # Iteration ended
-        if db.scard(REDIS_ZORBS_PROCESSING) == 0 and db.scard(REDIS_ZORBS_PROCESSED) == 0:
+        if (db.scard(REDIS_ZORBS_PROCESSING) == 0 and
+                db.scard(REDIS_ZORBS_PROCESSED) == 0):
             # Copy main set into processing set
             db.sunionstore(REDIS_ZORBS_PROCESSING, REDIS_ZORBS)
             db.sunionstore(REDIS_ZORBS_PROCESSED, REDIS_ZORBS)
 
         # Processing error, restore from processed
-        elif db.scard(REDIS_ZORBS_PROCESSING) == 0 and db.scard(REDIS_ZORBS_PROCESSED) > 0:
+        elif (db.scard(REDIS_ZORBS_PROCESSING) == 0 and
+                db.scard(REDIS_ZORBS_PROCESSED) > 0):
             db.sunionstore(REDIS_ZORBS_PROCESSING, REDIS_ZORBS_PROCESSED)
 
     db = get_db()
