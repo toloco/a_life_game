@@ -8,7 +8,7 @@ from .constants import ENV_REDIS_CONF
 conf = json.loads(os.getenv(ENV_REDIS_CONF, """{
     "host": "127.0.0.1",
     "port": 6379,
-    "db": 0
+    "db": 1
 }"""))
 pool = redis.ConnectionPool(**conf)
 

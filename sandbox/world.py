@@ -41,14 +41,19 @@ class World(object):
                 setattr(self, attribute, value)
         else:
             db = get_db()
-            for attr, value in db.hgetall(REDIS_WORLD).items():
+            attrs = db.hgetall(REDIS_WORLD)
+            if not attrs:
+                raise ValueError()
+            for attr, value in attrs.items():
                 attr, value = attr.decode("utf-8"), value.decode("utf-8")
                 setattr(self, attr, float(value))
 
     def __del__(self):
         # Update in Redis
-        db = get_db()
-        db.hmset(REDIS_WORLD, self.__dict__)
+        print(self.__dict__)
+        if self.__dict__:
+            db = get_db()
+            db.hmset(REDIS_WORLD, self.__dict__)
 
     @property
     def zorbs_no(self):

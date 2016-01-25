@@ -2,7 +2,6 @@ import uuid
 from enum import Enum, unique
 
 from .inout import get_db
-from .world import World
 from .constants import (
     REDIS_EVENTS,
     REDIS_EVENTS_TYPE,
@@ -30,7 +29,13 @@ class Event(object):
         self.id = str(uuid.uuid1())
         self.type = event_type
         self.data = data
-        self.data["day"] = World().day
+
+        # Avoid circular import
+        from .world import World
+        try:
+            self.data["day"] = World().day
+        except:
+            self.data["day"] = 1
 
     def __del__(self):
         db = get_db()
