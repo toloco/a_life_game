@@ -50,7 +50,7 @@ setup(
 
     entry_points={
         'console_scripts': [
-            "life = game.__main__:run",
+            "life = sandbox.__main__:run",
         ],
     },
 

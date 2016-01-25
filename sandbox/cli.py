@@ -1,5 +1,7 @@
 import cmd
 
+from termcolor import colored
+
 
 class CLI(cmd.Cmd):
     """
@@ -9,9 +11,15 @@ class CLI(cmd.Cmd):
         - Export ??
 
     """
-    prompt = '👉 '
-    intro = "Life of zorbs"
-    ruler = "~~"
+    prompt = '👉  '
+    intro = colored("""
+   __ _  __               __   _____           _
+  / /(_)/ _| ___    ___  / _| / _  / ___  _ __| |__
+ / / | | |_ / _ \  / _ \| |_  \// / / _ \| '__| '_ \ 
+/ /__| |  _|  __/ | (_) |  _|  / //\ (_) | |  | |_) |
+\____/_|_|  \___|  \___/|_|   /____/\___/|_|  |_.__/
+    """, "green")
+    ruler = colored('~~', 'red')
 
     YES = set(('yes', 'y', 'ye', ''))
     NO = set(('no', 'n'))
@@ -34,3 +42,18 @@ class CLI(cmd.Cmd):
 
     def help_new_world(self):
         print("Set new attributes for the sandbox")
+
+    def do_add_zorbs(self, _):
+        zorbs = input("How many new zorbs? [1..∞]") or 0
+
+    def help_add_zorbs(self):
+        print("Add new zorbs with properties")
+
+    def do_play(self, days):
+        if input("Are you sure you wanna play {} days? [Y/n]".format(days)) in self.YES:
+            pass
+        else:
+            print(">> No")
+
+    def help_play(self):
+        print("Play X days")
